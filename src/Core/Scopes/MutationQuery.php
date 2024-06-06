@@ -2,12 +2,12 @@
 
 namespace Core\Scopes;
 
-use Core\DataTransferObjects\MutationInput;
+use Core\MutationData;
 
 trait MutationQuery
 {
-    public function createWithInput(MutationInput $mutationInput)
+    public function createWithInput(MutationData $mutationInput)
     {
-        return $this->create($mutationInput->mutationData());
+        return $this->create($mutationInput->getData());
     }
 }
