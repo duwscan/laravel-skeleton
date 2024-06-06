@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsCommand;
 use Lorisleiva\Actions\Concerns\AsJob;
 use Lorisleiva\Actions\Concerns\AsListener;
-use Symfony\Component\Finder\Exception\AccessDeniedException;
 
 trait AsAction
 {
@@ -22,7 +21,7 @@ trait AsAction
     public static function make()
     {
         $action = app(static::class);
-        if (!$action->authorize()) {
+        if (! $action->authorize()) {
             throw new InternalException(code: ExceptionCode::NoAccess);
         }
 
@@ -42,14 +41,14 @@ trait AsAction
             $this->beforeAuthorize();
         }
 
-        if (!$this->access) {
+        if (! $this->access) {
             return true;
         }
-        if (!auth()->check()) {
+        if (! auth()->check()) {
             return false;
         }
 
-        if (!$this->isValidAccessSchema()) {
+        if (! $this->isValidAccessSchema()) {
             throw new \Exception('Invalid access schema');
         }
 
