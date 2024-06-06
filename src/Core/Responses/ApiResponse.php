@@ -11,6 +11,7 @@ trait ApiResponse
     public function returnWithRequestParams(): self
     {
         $this->metaData['params'] = request()->all();
+
         return $this;
     }
 

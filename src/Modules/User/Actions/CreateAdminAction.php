@@ -9,8 +9,8 @@ class CreateAdminAction
     use AsAction;
 
     protected array $access = [
-        'roles'=> ['admin'],
-        'permissions'=> ['create-admin'],
+        'roles' => ['admin'],
+        'permissions' => ['create-admin'],
         'can' => ['create-admin'],
     ];
 }

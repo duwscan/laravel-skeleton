@@ -10,25 +10,26 @@ use Symfony\Component\Finder\Exception\AccessDeniedException;
 
 trait AsAction
 {
-    use AsRunnable;
-    use AsListener;
-    use AsJob;
     use AsCommand;
+    use AsJob;
+    use AsListener;
+    use AsRunnable;
 
     protected array $access;
 
     public static function make()
     {
         $action = app(static::class);
-        if (!$action->authorize()) {
+        if (! $action->authorize()) {
             throw new AccessDeniedException();
-        };
+        }
+
         return $action;
     }
 
     public function runWithTransaction($retry, ...$args)
     {
-        return DB::transaction(function () use ($retry, $args) {
+        return DB::transaction(function () use ($args) {
             return $this->run(...$args);
         }, $retry);
     }
@@ -39,17 +40,16 @@ trait AsAction
             $this->beforeAuthorize();
         }
 
-        if (!$this->access) {
+        if (! $this->access) {
             return true;
         }
-        if (!auth()->check()) {
+        if (! auth()->check()) {
             return false;
         }
 
-        if (!$this->isValidAccessSchema()) {
+        if (! $this->isValidAccessSchema()) {
             throw new \Exception('Invalid access schema');
         }
-
 
         if (isset($this->access['roles'])) {
             return auth()->user()->hasAnyRole($this->access['roles']);
@@ -65,6 +65,7 @@ trait AsAction
                     return auth()->user()->can($can);
                 });
             }
+
             return auth()->user()->can($this->access['can']);
         }
 
