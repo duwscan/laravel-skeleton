@@ -13,7 +13,6 @@ class RouteServiceProvider extends LaravelRouteServiceProvider
         $this->loadApiRouting();
     }
 
-
     public function loadApiRouting(): void
     {
         // Define the pattern to search for route files
@@ -30,7 +29,7 @@ class RouteServiceProvider extends LaravelRouteServiceProvider
                 $matches);
 
             if (isset($matches[1], $matches[2])) {
-                $moduleName = strtolower($matches[1]);// Extract the module name
+                $moduleName = strtolower($matches[1]); // Extract the module name
                 $moduleName = Str::plural($moduleName); // Convert the module name to plural due to rest api convention
                 $version = strtolower($matches[2]); // Extract the version (e.g., v1, v2)
             } else {
@@ -39,8 +38,8 @@ class RouteServiceProvider extends LaravelRouteServiceProvider
             }
 
             // Ensure the version starts with 'v' and is lowercase
-            if (!Str::startsWith($version, 'v')) {
-                $version = 'v' . $version;
+            if (! Str::startsWith($version, 'v')) {
+                $version = 'v'.$version;
             }
 
             // Define the API prefix dynamically based on the version and module name

@@ -49,10 +49,10 @@ class ExceptionHandler extends LaravelExceptionHandler
             $this->renderable(
                 function (\Exception $e) {
                     return $this->responseError($e->getMessage(), [
-                        "line" => $e->getLine(),
-                        "file" => $e->getFile(),
-                        "trace" => $e->getTrace(),
-                        "code" => $e->getCode(),
+                        'line' => $e->getLine(),
+                        'file' => $e->getFile(),
+                        'trace' => $e->getTrace(),
+                        'code' => $e->getCode(),
                     ], ResponseAlias::HTTP_INTERNAL_SERVER_ERROR);
                 }
             );

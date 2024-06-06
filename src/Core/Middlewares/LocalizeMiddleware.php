@@ -20,6 +20,7 @@ class LocalizeMiddleware
         } else {
             app()->setLocale('en');
         }
+
         return $next($request);
     }
 }

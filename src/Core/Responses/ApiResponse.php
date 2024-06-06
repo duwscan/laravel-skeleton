@@ -3,7 +3,6 @@
 namespace Core\Responses;
 
 use Core\Exceptions\ExceptionCode;
-use Illuminate\Http\Resources\Json\JsonResource;
 
 trait ApiResponse
 {
@@ -12,7 +11,7 @@ trait ApiResponse
         return response()->json([
             'status' => 'success',
             'message' => $message,
-            'data' => $data
+            'data' => $data,
         ], $code);
     }
 

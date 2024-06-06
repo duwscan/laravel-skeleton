@@ -34,7 +34,7 @@ enum ExceptionCode: int
         $translation = __($key);
 
         if ($key === $translation) {
-            return "Something went wrong";
+            return 'Something went wrong';
         }
 
         return $translation;
@@ -46,7 +46,7 @@ enum ExceptionCode: int
         $translation = __($key);
 
         if ($key === $translation) {
-            return "No additional description provided";
+            return 'No additional description provided';
         }
 
         return $translation;

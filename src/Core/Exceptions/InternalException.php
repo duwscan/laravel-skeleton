@@ -11,6 +11,7 @@ class InternalException extends Exception
     use ApiResponse;
 
     protected string $description;
+
     protected ExceptionCode $internalCode;
 
     public static function new(
@@ -56,5 +57,4 @@ class InternalException extends Exception
             $this->getInternalCode()->getStatusCode(),
         );
     }
-
 }
