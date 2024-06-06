@@ -2,7 +2,7 @@
 
 namespace Core\Scopes;
 
-use Core\MutationData;
+use Core\Data\MutationData;
 
 trait MutationQuery
 {

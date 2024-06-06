@@ -6,12 +6,24 @@ use Core\Exceptions\ExceptionCode;
 
 trait ApiResponse
 {
-    public function responseSuccess($data, $message = null, $code = 200): \Illuminate\Http\JsonResponse
+    protected array $metaData = [];
+
+    public function returnWithRequestParams(): self
     {
+        $this->metaData['params'] = request()->all();
+        return $this;
+    }
+
+    public function responseSuccess(
+        $data,
+        $message = null,
+        $code = 200,
+    ): \Illuminate\Http\JsonResponse {
         return response()->json([
             'status' => 'success',
             'message' => $message,
             'data' => $data,
+            'meta' => $this->metaData,
         ], $code);
     }
 

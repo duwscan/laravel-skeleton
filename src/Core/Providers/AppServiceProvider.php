@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace Core\Providers;
 
 use Core\Exceptions\ExceptionHandler;
 use Illuminate\Database\Eloquent\Model;

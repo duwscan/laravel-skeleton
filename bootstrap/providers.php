@@ -1,8 +1,11 @@
 <?php
 
+use Core\Providers\AppServiceProvider;
 use Core\Providers\RouteServiceProvider;
+use Spatie\Permission\PermissionServiceProvider;
 
 return [
-    App\Providers\AppServiceProvider::class,
+    AppServiceProvider::class,
     RouteServiceProvider::class,
+    PermissionServiceProvider::class,
 ];
