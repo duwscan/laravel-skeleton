@@ -2,6 +2,8 @@
 
 namespace Core\Traits;
 
+use Core\Exceptions\ExceptionCode;
+use Core\Exceptions\InternalException;
 use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsCommand;
 use Lorisleiva\Actions\Concerns\AsJob;
@@ -20,8 +22,8 @@ trait AsAction
     public static function make()
     {
         $action = app(static::class);
-        if (! $action->authorize()) {
-            throw new AccessDeniedException();
+        if (!$action->authorize()) {
+            throw new InternalException(code: ExceptionCode::NoAccess);
         }
 
         return $action;
@@ -40,14 +42,14 @@ trait AsAction
             $this->beforeAuthorize();
         }
 
-        if (! $this->access) {
+        if (!$this->access) {
             return true;
         }
-        if (! auth()->check()) {
+        if (!auth()->check()) {
             return false;
         }
 
-        if (! $this->isValidAccessSchema()) {
+        if (!$this->isValidAccessSchema()) {
             throw new \Exception('Invalid access schema');
         }
 
