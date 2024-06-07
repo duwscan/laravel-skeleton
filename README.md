@@ -170,8 +170,8 @@ Are the components that are not mandatory but can be used to improve the applica
 Eg - DTO, Services, Repositories, Jobs, Events, Listeners, Mails, Notifications, Policies, Rules, etc.  
 But if any Module needs to use these components, they should be placed in the Module folder.
 ##### Scopes
-Scopes are a way to encapsulate common queries that you will use in your application.
-Principal:
+Scopes are a way to encapsulate common queries that you will use in your application.  
+Principles:
 - Scopes are trait that use in Model Builder.
 ####
 Note: Using Scopes is a alternative of Repository.  
