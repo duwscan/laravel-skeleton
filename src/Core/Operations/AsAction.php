@@ -1,10 +1,9 @@
 <?php
 
-namespace Core\Traits;
+namespace Core\Operations;
 
 use Core\Exceptions\ExceptionCode;
 use Core\Exceptions\InternalException;
-use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsCommand;
 use Lorisleiva\Actions\Concerns\AsJob;
 use Lorisleiva\Actions\Concerns\AsListener;
@@ -26,13 +25,6 @@ trait AsAction
         }
 
         return $action;
-    }
-
-    public function runWithTransaction($retry, ...$args)
-    {
-        return DB::transaction(function () use ($args) {
-            return $this->run(...$args);
-        }, $retry);
     }
 
     public function authorize()

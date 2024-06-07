@@ -107,13 +107,14 @@ Principles:
 - Each Module should have its own Actions.
 #####
 Pseudo Code Example:
+
 ```php
 
 <?php
 
 namespace Modules\User\Actions;
 
-use Core\Traits\AsAction;
+use Core\Operations\AsAction;
 
 class CreateAdminAction
 {

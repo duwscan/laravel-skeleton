@@ -2,7 +2,7 @@
 
 namespace Modules\User\Actions;
 
-use Core\Traits\AsAction;
+use Core\Operations\AsAction;
 
 class CreateAdminAction
 {

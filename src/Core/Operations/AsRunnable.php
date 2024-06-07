@@ -1,6 +1,6 @@
 <?php
 
-namespace Core\Traits;
+namespace Core\Operations;
 
 use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsObject;
