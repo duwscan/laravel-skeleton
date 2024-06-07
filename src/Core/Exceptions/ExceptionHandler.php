@@ -6,7 +6,9 @@ use Core\Responses\ApiResponse;
 use Illuminate\Foundation\Exceptions\Handler as LaravelExceptionHandler;
 use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 
@@ -29,6 +31,11 @@ class ExceptionHandler extends LaravelExceptionHandler
         );
 
         $this->renderable(
+            function (AccessDeniedHttpException $e) {
+                return $this->responseError(code: ExceptionCode::NoAccess);
+            }
+        );
+        $this->renderable(
             function (UnauthorizedHttpException $e) {
                 return $this->responseError(code: ExceptionCode::Unauthorized);
             }
@@ -45,6 +52,19 @@ class ExceptionHandler extends LaravelExceptionHandler
                 return $this->responseError(code: ExceptionCode::BadRequest);
             }
         );
+
+        $this->renderable(
+            function (InternalException $e) {
+                return $this->responseError(code: $e->getCode());
+            }
+        );
+
+        $this->renderable(
+            function (HttpException $e) {
+                return $this->responseError($e->getMessage(), null, $e->getStatusCode());
+            }
+        );
+
         if (app()->isLocal()) {
             $this->renderable(
                 function (\Exception $e) {

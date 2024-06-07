@@ -4,6 +4,7 @@ namespace Core\Traits;
 
 use Core\Exceptions\ExceptionCode;
 use Core\Exceptions\InternalException;
+use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Support\Facades\DB;
 use Lorisleiva\Actions\Concerns\AsCommand;
 use Lorisleiva\Actions\Concerns\AsJob;
