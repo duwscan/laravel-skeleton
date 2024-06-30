@@ -13,7 +13,8 @@ class RunnableWithLogDecorator extends RunnableDecorator
 
     public function run(...$args)
     {
-        Log::info('Action started: ' . get_class($this->action));
+        Log::info('Action started: '.get_class($this->action));
+
         return parent::run(...$args);
     }
 }

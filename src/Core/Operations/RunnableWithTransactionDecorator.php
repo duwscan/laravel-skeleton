@@ -10,6 +10,7 @@ class RunnableWithTransactionDecorator extends RunnableDecorator
     {
         parent::__construct($action);
     }
+
     public function run(...$args)
     {
         return DB::transaction(function () use ($args) {

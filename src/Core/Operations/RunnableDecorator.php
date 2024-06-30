@@ -5,6 +5,7 @@ namespace Core\Operations;
 class RunnableDecorator implements RunnableInterface
 {
     use AsRunnable;
+
     protected RunnableInterface $action;
 
     public function __construct(RunnableInterface $action)
