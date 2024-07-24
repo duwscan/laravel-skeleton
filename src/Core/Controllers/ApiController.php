@@ -6,8 +6,9 @@ use Core\Responses\ApiResponse;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
-use Illuminate\Support\Str;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Str;
+
 abstract class ApiController extends BaseController
 {
     use ApiResponse, AuthorizesRequests, DispatchesJobs, ValidatesRequests;
@@ -23,7 +24,7 @@ abstract class ApiController extends BaseController
         $middleware = [];
 
         foreach ($this->resourceAbilityMap() as $method => $ability) {
-            $modelName = in_array($method, $this->resourceMethodsWithoutModels()) ? $model . ',' . $parameter : $model . ',' . $parameter . ',' . $modelParameter;
+            $modelName = in_array($method, $this->resourceMethodsWithoutModels()) ? $model.','.$parameter : $model.','.$parameter.','.$modelParameter;
             $middleware["can:{$ability},{$modelName}"][] = $method;
         }
         foreach ($middleware as $middlewareName => $methods) {
