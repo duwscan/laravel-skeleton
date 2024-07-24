@@ -11,23 +11,33 @@ class InternalException extends Exception
     use ApiResponse;
 
     protected string $description;
-
+    protected int $statusCode;
+    protected ?\Throwable $replacedException;
     protected ExceptionCode $internalCode;
 
     public static function new(
         ExceptionCode $code,
-        ?string $message = null,
-        ?string $description = null,
-        ?int $statusCode = null,
-    ): static {
+        ?string       $message = null,
+        ?string       $description = null,
+        ?int          $statusCode = null,
+        ?\Throwable   $replacedException = null,
+    ): static
+    {
         $exception = new static(
             $message ?? $code->getMessage(),
             $statusCode ?? $code->getStatusCode(),
         );
-
+        $exception->replacedException = $replacedException;
         $exception->internalCode = $code;
-        $exception->description = $description ?? $code->getDescription();
-
+        if ($message === null) {
+            $exception->message = $code->getMessage();
+        }
+        if ($statusCode === null) {
+            $exception->statusCode = $code->getStatusCode();
+        }
+        if ($description === null) {
+            $exception->description = $code->getDescription();
+        }
         return $exception;
     }
 
@@ -36,8 +46,15 @@ class InternalException extends Exception
         return $this->internalCode;
     }
 
-    public function getDescription(): string
+    public function getDescription(): string|array
     {
+        if ($this->replacedException) {
+            return
+                [
+                    "message" => $this->replacedException->getMessage(),
+                    "trace" => $this->replacedException->getTrace(),
+                ];
+        }
         return $this->description;
     }
 
@@ -46,15 +63,8 @@ class InternalException extends Exception
         // ...
     }
 
-    /**
-     * Render the exception into an HTTP response.
-     */
-    public function render(Request $request)
+    public function getStatusCode(): int
     {
-        return $this->responseError(
-            $this->getMessage(),
-            $this->getDescription(),
-            $this->getInternalCode()->getStatusCode(),
-        );
+        return $this->statusCode;
     }
 }

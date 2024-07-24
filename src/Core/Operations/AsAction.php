@@ -17,6 +17,11 @@ trait AsAction
 
     protected array $access;
 
+    public function validate(array $data) :void {
+        if(method_exists($this, 'rules')){
+            validator($data, $this->rules());
+        }
+    }
     public static function make()
     {
         $action = app(static::class);

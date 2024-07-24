@@ -10,7 +10,7 @@ class UserException extends InternalException
     public static function userAlreadyExists(): self
     {
         return static::new(
-            ExceptionCode::UserAlreadyExists
+            ExceptionCode::UserAlreadyExists,
         );
     }
 }

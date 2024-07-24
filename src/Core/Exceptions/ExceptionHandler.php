@@ -26,7 +26,7 @@ class ExceptionHandler extends LaravelExceptionHandler
     {
         $this->renderable(
             function (ValidationException $e) {
-                return $this->responseError($e->getMessage(), null, ResponseAlias::HTTP_UNPROCESSABLE_ENTITY);
+                return $this->responseError($e->errors(), null, ResponseAlias::HTTP_UNPROCESSABLE_ENTITY);
             }
         );
 
@@ -55,7 +55,11 @@ class ExceptionHandler extends LaravelExceptionHandler
 
         $this->renderable(
             function (InternalException $e) {
-                return $this->responseError(code: $e->getCode());
+                return $this->responseError(
+                    message: $e->getMessage(),
+                    description: $e->getDescription(),
+                    code: $e->getStatusCode()
+                );
             }
         );
 
